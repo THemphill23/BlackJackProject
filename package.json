@@ -1,0 +1,15 @@
+{
+  "name": "blackjack-dealer-logic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Taylor Hemphill <54860461+THemphill23@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0"
+  },
+    "scripts": {
+      "start": "webpack-dev-server --mode development --content-base docs/ --open --hot"
+    }
+}
