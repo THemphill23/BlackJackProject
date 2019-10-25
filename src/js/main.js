@@ -36,20 +36,47 @@ export default () =>{
       document.getElementById("board")
       board.innerHTML = `What would you like to do?`}, 5500)
       
-      hitButton.onclick = function() {
-        game.hitUser();
-        game.evaluateUser();
-        const card2 = document.getElementById("card2")
-        card2.innerHTML = `Your current hand: ${game.getUserHandValue()}`
-
-      }
+      // while(game.isUserPlaying() && !game.isUserBust()){
+        hitButton.onclick = function() {
+          game.hitUser();
+          game.evaluateUser();
+          const card2 = document.getElementById("card2")
+          card2.innerHTML = `Your current hand: ${game.getUserHandValue()}`
   
-      standButton.onclick = function() {
-        game.standUser();
-        game.evaluateUser();
-        const card3 = document.getElementById("card3")
-        card3.innerHTML = `Your current hand: ${game.getUserHandValue()}`
-      }
+        }
+    
+        standButton.onclick = function() {
+          game.standUser();
+          game.evaluateUser();
+          const card3 = document.getElementById("card3")
+          card3.innerHTML = `Your current hand: ${game.getUserHandValue()}`
+          game.settleDealerHand();
+
+          const dealFull = document.getElementById("dealFull");
+          dealFull.innerHTML = `Dealer has: ${game.getDealerHandValue()}`
+          switch(game.outcome()) {
+            case Result.LOSS:
+              document.innerHTML("You lost...");
+              game.resetAnte();
+              break;
+
+            case Result.PUSH:
+              document.innerHTMl("Pussh...you get your money back.");
+              game.pushHand();
+              break;
+
+            case Result.WIN:
+              document.innerHTML("Congrats! You Won!");
+              game.userWin();
+              break;
+
+            default:
+              break;
+          }
+
+        }
+
+      // }
 
       // doubleButton.onclick = function() {
       //   game.doubleUser();
@@ -62,10 +89,8 @@ export default () =>{
       //   game.resetPlayers();
       // }
 
-      game.settleDealerHand();
 
-      document.getElementById("dealFull")
-      dealFull.innerHTML = `Dealer has: ${game.getDealerHandValue()}`
-      switch(game.outcome()) {}
     }
   }
+  // game.resetPlayers();
+  
