@@ -1,6 +1,4 @@
 import blackjack from "blackjack-dealer-logic";
-import { question } from "readline-sync";
-
 
 
 export default () =>{
@@ -15,9 +13,9 @@ export default () =>{
       alert("Let' Play BlackJack!" + game.getUserChips())
       document.getElementById("board")
       board.innerHTML = `Your current chip count is: ${game.getUserChips()}`
-      game.wager()
-      game.receiveAnte(wager);
-      game.getAnte()
+      // game.wager()
+      // game.receiveAnte(wager);
+      // game.getAnte()
       // document.write();
 
       game.resetPlayers();
