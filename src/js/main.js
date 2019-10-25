@@ -5,53 +5,67 @@ export default () =>{
   const game =  blackjack.singleDeckGame;
   const gameIsRunning = true;
   const playButton = document.getElementById("playButton");
-  const hitButton = document.getElementById("hitButton")
-
+  const hitButton = document.getElementById("hitButton");
+  const standButton = document.getElementById("standButton");
+  const doubleButton = document.getElementById("doubleButton");
+  
+  
   playButton.onclick = function(){
     // while (gameIsRunning){
       // alert("Let' Play BlackJack!" + game.getUserChips())
-
+      
       document.getElementById("chips")
       chips.innerHTML = `Your current chip count is: ${game.getUserChips()}`
 
-      const wager = window.prompt("Enter your bet:")
-        
+      setTimeout(function() { const wager = window.prompt("Enter your bet:")
+      
       game.receiveAnte(wager);
-        
+      
       document.getElementById("bet")
-      bet.innerHTML = `Your bet is: ${wager}`
+      bet.innerHTML = `Your bet is: ${wager}`}, 2000)
+      
       game.deal();
       
-      document.getElementById("dealer")
+      setTimeout(function(){ document.getElementById("dealer")
       dealer.innerHTML = `Dealer is showing: ${game.getDealerCardUp()}`
-
+      
       document.getElementById("player")
       player.innerHTML = `Your current hand: ${game.getUserHandValue()}`
-
+      
+      
       document.getElementById("board")
-      board.innerHTML = `What would you like to do?`
+      board.innerHTML = `What would you like to do?`}, 5500)
+      
+      hitButton.onclick = function() {
+        game.hitUser();
+        game.evaluateUser();
+        const card2 = document.getElementById("card2")
+        card2.innerHTML = `Your current hand: ${game.getUserHandValue()}`
 
-      const userAction = window.prompt("1:HIT   2:STAND   3:DOUBLE")
-        switch(userAction){
-          case "1":
-          break;
+      }
+  
+      standButton.onclick = function() {
+        game.standUser();
+        game.evaluateUser();
+        const card3 = document.getElementById("card3")
+        card3.innerHTML = `Your current hand: ${game.getUserHandValue()}`
+      }
 
-          case "2":
-            break;
-
-
-          case "3":
-            break;
-
-          default:
-            break;
-        }
-        
-
-      // game.resetPlayers();
-    }
+      // doubleButton.onclick = function() {
+      //   game.doubleUser();
+      //   game.evaluateUser();
+      //   const card4 = document.getElementById("card4")
+      //   card4.innerHTML = `Your bet is: ${wager}`}
+      // }
     
-    // hitButton.onclick = fucntion(){
-    //     game.hitUser()
-    // }
+      // resetButton.onclick = function() {
+      //   game.resetPlayers();
+      // }
+
+      game.settleDealerHand();
+
+      document.getElementById("dealFull")
+      dealFull.innerHTML = `Dealer has: ${game.getDealerHandValue()}`
+      switch(game.outcome()) {}
+    }
   }
