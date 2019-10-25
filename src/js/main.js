@@ -3,7 +3,9 @@ import blackjack from "blackjack-dealer-logic";
 
 export default () =>{
   const game =  blackjack.singleDeckGame;
-  const gameIsRunning = true;
+  const result = blackjack.Result;
+  let wager = blackjack.wager;
+  // const gameIsRunning = true;
   const playButton = document.getElementById("playButton");
   const hitButton = document.getElementById("hitButton");
   const standButton = document.getElementById("standButton");
@@ -17,7 +19,7 @@ export default () =>{
       document.getElementById("chips")
       chips.innerHTML = `Your current chip count is: ${game.getUserChips()}`
 
-      setTimeout(function() { const wager = window.prompt("Enter your bet:")
+      setTimeout(function() { wager = window.prompt("Enter your bet:")
       
       game.receiveAnte(wager);
       
@@ -43,6 +45,30 @@ export default () =>{
           const card2 = document.getElementById("card2")
           card2.innerHTML = `Your current hand: ${game.getUserHandValue()}`
   
+          game.settleDealerHand();
+
+          const dealFull = document.getElementById("dealFull");
+          dealFull.innerHTML = `Dealer has: ${game.getDealerHandValue()}`
+          switch(game.outcome()) {
+            case result.LOSS:
+              const result1 = document.getElementById("result")
+              result1.innerHTML = "You lost...";
+              game.resetAnte();
+              break;
+
+            case result.PUSH:
+              const result2 = document.getElementById("result")
+              result2.innerHTML = "Push...you get your money back";
+              break;
+
+            case result.WIN:
+              const result3 = document.getElementById("result")
+              result3.innerHTML = "Congrats! You Won!";
+              break;
+
+            default:
+              break;
+          }
         }
     
         standButton.onclick = function() {
@@ -50,24 +76,26 @@ export default () =>{
           game.evaluateUser();
           const card3 = document.getElementById("card3")
           card3.innerHTML = `Your current hand: ${game.getUserHandValue()}`
+
           game.settleDealerHand();
 
           const dealFull = document.getElementById("dealFull");
           dealFull.innerHTML = `Dealer has: ${game.getDealerHandValue()}`
           switch(game.outcome()) {
-            case Result.LOSS:
-              document.innerHTML("You lost...");
+            case result.LOSS:
+              const result1 = document.getElementById("result")
+              result1.innerHTML = "You lost...";
               game.resetAnte();
               break;
 
-            case Result.PUSH:
-              document.innerHTMl("Pussh...you get your money back.");
-              game.pushHand();
+            case result.PUSH:
+              const result2 = document.getElementById("result")
+              result2.innerHTML = "Push...you get your money back";
               break;
 
-            case Result.WIN:
-              document.innerHTML("Congrats! You Won!");
-              game.userWin();
+            case result.WIN:
+              const result3 = document.getElementById("result")
+              result3.innerHTML = "Congrats! You Won!";
               break;
 
             default:
@@ -76,21 +104,16 @@ export default () =>{
 
         }
 
-      // }
-
-      // doubleButton.onclick = function() {
-      //   game.doubleUser();
-      //   game.evaluateUser();
-      //   const card4 = document.getElementById("card4")
-      //   card4.innerHTML = `Your bet is: ${wager}`}
-      // }
-    
-      // resetButton.onclick = function() {
-      //   game.resetPlayers();
-      // }
-
+        doubleButton.onclick = function(){
+          game.doubleUser();
+          wager = window.prompt("Double your wager");
+          game.receiveAnte(wager);
+          game.evaluateUser();
+          const dblwager = document.getElementById("dblwager");
+          dblwager.innerHTML = `Your wager is: ${wager}`
+        }
 
     }
   }
-  // game.resetPlayers();
+
   
