@@ -1,0 +1,41 @@
+*{
+    box-sizing: inherit;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+#app{
+    padding: 2rem;
+    color: orange;
+    height:  100vh;
+    width: 100%;
+    background-color: teal;
+}
+
+#playButton{
+    color: black;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: 2rem;
+}
+
+#hitButton{
+    color: black;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: 2rem;
+}
+
+#standButton{
+    color: black;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: 2rem;
+}
+
+#doubleButton{
+    color: black;
+    padding: .5rem;
+    margin: .5rem;
+    border-radius: 2rem;
+}
