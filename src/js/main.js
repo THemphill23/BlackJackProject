@@ -4,8 +4,7 @@ import blackjack from "blackjack-dealer-logic";
 export default () =>{
   const game =  blackjack.singleDeckGame;
   const result = blackjack.Result;
-  let wager = blackjack.wager;
-  // const gameIsRunning = true;
+  let wager = 0;
   const playButton = document.getElementById("playButton");
   const hitButton = document.getElementById("hitButton");
   const standButton = document.getElementById("standButton");
@@ -13,9 +12,7 @@ export default () =>{
   
   
   playButton.onclick = function(){
-    // while (gameIsRunning){
-      // alert("Let' Play BlackJack!" + game.getUserChips())
-      
+
       document.getElementById("chips")
       chips.innerHTML = `Your current chip count is: ${game.getUserChips()}`
 
@@ -24,7 +21,7 @@ export default () =>{
       game.receiveAnte(wager);
       
       document.getElementById("bet")
-      bet.innerHTML = `Your bet is: ${wager}`}, 2000)
+      bet.innerHTML = `Your bet is: ${wager}`}, 1500)
       
       game.deal();
       
@@ -36,9 +33,8 @@ export default () =>{
       
       
       document.getElementById("board")
-      board.innerHTML = `What would you like to do?`}, 5500)
+      board.innerHTML = `What would you like to do?`}, 5000)
       
-      // while(game.isUserPlaying() && !game.isUserBust()){
         hitButton.onclick = function() {
           game.hitUser();
           game.evaluateUser();
@@ -53,17 +49,23 @@ export default () =>{
             case result.LOSS:
               const result1 = document.getElementById("result")
               result1.innerHTML = "You lost...";
-              game.resetAnte();
+              game.resetAnte()
+              game.resetPlayers();
+
               break;
 
             case result.PUSH:
               const result2 = document.getElementById("result")
               result2.innerHTML = "Push...you get your money back";
+              game.pushHand();
+              game.resetPlayers();
               break;
 
             case result.WIN:
               const result3 = document.getElementById("result")
               result3.innerHTML = "Congrats! You Won!";
+              game.userWin();
+              game.resetPlayers();
               break;
 
             default:
@@ -86,16 +88,22 @@ export default () =>{
               const result1 = document.getElementById("result")
               result1.innerHTML = "You lost...";
               game.resetAnte();
+              game.resetPlayers();
               break;
 
             case result.PUSH:
               const result2 = document.getElementById("result")
               result2.innerHTML = "Push...you get your money back";
+              game.pushHand();
+              game.resetPlayers();
               break;
 
             case result.WIN:
               const result3 = document.getElementById("result")
               result3.innerHTML = "Congrats! You Won!";
+              game.userWin();
+              game.resetPlayers();
+              
               break;
 
             default:
@@ -105,15 +113,12 @@ export default () =>{
         }
 
         doubleButton.onclick = function(){
-          game.doubleUser();
-          wager = window.prompt("Double your wager");
-          game.receiveAnte(wager);
+          game.doubleUser(2 * wager);
           game.evaluateUser();
           const dblwager = document.getElementById("dblwager");
           dblwager.innerHTML = `Your wager is: ${wager}`
         }
 
     }
+    game.resetPlayers();
   }
-
-  
